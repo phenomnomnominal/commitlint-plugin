@@ -1,0 +1,11 @@
+{
+  "name": "@phenomnomnominal/commitlint-plugin",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "description": "commitlint rules for @phenomnomnominal",
+  "main": "index.js",
+  "author": "Craig Spence <craigspence0@gmail.com>",
+  "license": "MIT"
+}
