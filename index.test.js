@@ -53,6 +53,12 @@ const { rules } = require("./index");
       result: true,
     },
   },
+  {
+    input: { type: "chore", scope: "dependencies 📦" },
+    expected: {
+      result: true,
+    },
+  },
 ].forEach(({ input, expected }) => {
   const [result, message] = rules["@phenomnomnominal/scopes"](input);
   assert.equal(result, expected.result);

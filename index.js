@@ -3,6 +3,7 @@ const DEFAULT_EMOJI_MAP = {
   chore: "🕸",
   ci: "🚧",
   docs: "📚",
+  dependencies: "📦",
   feat: "✨",
   fix: "🐛",
   perf: "🏎",
