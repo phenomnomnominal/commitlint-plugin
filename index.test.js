@@ -3,14 +3,14 @@ const { rules } = require("./index");
 
 [
   {
-    input: {},
+    input: { type: "chore", scope: null },
     expected: { result: false, message: `commit scope should be set` },
   },
   {
     input: { type: "build", scope: "compiler" },
     expected: {
       result: false,
-      message: `commit message with type "build" should have scope = (🔨) or scope = (myscope 🔨)`,
+      message: `commit message with type "build" should begin build(🔨) or build(myscope 🔨)`,
     },
   },
   {
@@ -24,14 +24,14 @@ const { rules } = require("./index");
     input: { type: "docs", scope: "compiler  📚" },
     expected: {
       result: false,
-      message: `commit message with type "docs" should have scope = (📚) or scope = (myscope 📚)`,
+      message: `commit message with type "docs" should begin docs(📚) or docs(myscope 📚)`,
     },
   },
   {
     input: { type: "docs", scope: "two words 📚" },
     expected: {
       result: false,
-      message: `commit message with type "docs" should have scope = (📚) or scope = (myscope 📚)`,
+      message: `commit message with type "docs" should begin docs(📚) or docs(myscope 📚)`,
     },
   },
   {
@@ -59,7 +59,21 @@ const { rules } = require("./index");
       result: true,
     },
   },
+  {
+    input: { type: "chore", scope: "🕸" },
+    expected: {
+      result: true,
+    },
+  },
+  {
+    input: { type: "chore", scope: "📦" },
+    expected: {
+      result: false,
+      message: `commit message with type "chore" should begin chore(🕸) or chore(myscope 🕸)`,
+    },
+  },
 ].forEach(({ input, expected }) => {
+  process.stdout.write(`test 🔥 - ${input.type}(${input.scope})\n`);
   const [result, message] = rules["@phenomnomnominal/scopes"](input);
   assert.equal(result, expected.result);
   if (!result) {

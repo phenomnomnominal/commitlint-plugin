@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "commitlint rules for @phenomnomnominal",
   "main": "index.js",
   "author": "Craig Spence <craigspence0@gmail.com>",

@@ -14,8 +14,8 @@ const DEFAULT_EMOJI_MAP = {
   test: "🚨",
 };
 
-const PARSE_EMOJI = /(\p{Emoji_Presentation})$/u;
-const PARSE_SCOPE = /^(\w*) (\p{Emoji_Presentation})$/u;
+const PARSE_EMOJI = /^(\p{Emoji})$/u;
+const PARSE_SCOPE = /^(\w*) (\p{Emoji})$/u;
 
 module.exports = {
   rules: {
@@ -27,13 +27,19 @@ module.exports = {
       if (!scope) {
         return [false, `commit scope should be set`];
       }
-      const expectedTypeEmoji = value[type];
       const [, scopeEmoji] = scope.match(PARSE_EMOJI) || [];
       const [, scopeName, emoji] = scope.match(PARSE_SCOPE) || [];
-      if (!scopeEmoji || !scopeName || !emoji) {
+      const expectedTypeEmoji = value[type];
+      if (scopeEmoji) {
+        return [
+          scopeEmoji === expectedTypeEmoji,
+          `commit message with type "${type}" should begin ${type}(${expectedTypeEmoji}) or ${type}(myscope ${expectedTypeEmoji})`,
+        ];
+      }
+      if (!scopeName && !emoji) {
         return [
           false,
-          `commit message with type "${type}" should have scope = (${expectedTypeEmoji}) or scope = (myscope ${expectedTypeEmoji})`,
+          `commit message with type "${type}" should begin ${type}(${expectedTypeEmoji}) or ${type}(myscope ${expectedTypeEmoji})`,
         ];
       }
       const expectedScopeEmoji = value[scopeName];
