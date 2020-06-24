@@ -3,9 +3,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "commitlint rules for @phenomnomnominal",
   "main": "index.js",
   "author": "Craig Spence <craigspence0@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "node index.test.js"
+  }
 }
